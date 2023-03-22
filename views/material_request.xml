@@ -1,0 +1,83 @@
+<odoo>
+    <record id="material_request_view" model="ir.actions.act_window">
+        <field name="name">Material Request</field>
+        <field name="res_model">material.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="material_request_seq" model="ir.sequence">
+        <field name="name">Request</field>
+        <field name="code">material.request</field>
+        <field name="prefix">RQ</field>
+        <field name="padding">3</field>
+    </record>
+    <record id="material_request_tree" model="ir.ui.view">
+        <field name="name">Material Request</field>
+        <field name="model">material.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="request"/>
+                <field name="name_id"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="material_form_view" model="ir.ui.view">
+        <field name="name">Material Request</field>
+        <field name="model">material.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit" string="SUBMIT"
+                            class="oe_highlight" state="draft" type="object"
+                            attrs="{'invisible':[('state','!=', 'draft')]}"/>
+                    <button name="action_approve" class="oe_highlight"
+                            string="APPROVE" type="object"
+                            attrs="{'invisible':[('state','!=', 'toapprove')]}"
+                            groups="material_req.requisition_manager"/>
+                    <button name="action_reject" string="REJECT"
+                            class="oe_highlight" type="object"
+                            attrs="{'invisible':[('state','!=', 'toapprove')]}"
+                            groups="material_req.requisition_head"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,toapprove,approved,rejected"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object"
+                                name="get_po_order" string="Purchase Order"
+                                attrs="{'invisible':[('po_count','=', 0)]}">
+                            <field name="po_count" widget="statinfo"/>
+
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="get_internal_order"
+                                string="Internal Transfer"
+                                attrs="{'invisible':[('internal_count','=', 0)]}">
+                            <field name="internal_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="request"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="name_id"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Product">
+                            <field name="product_line_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

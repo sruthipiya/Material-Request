@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="material_request_menu_root" name="Material Request"/>
+    <menuitem id="material_request_details_action"
+              action="material_request_view"
+              parent="material_request_menu_root"/>
+</odoo>

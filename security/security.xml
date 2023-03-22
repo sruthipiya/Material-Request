@@ -1,0 +1,23 @@
+<odoo>
+     <record model="ir.module.category" id="material_req">
+        <field name="name">Material Request</field>
+        <field name="description">Security for material request</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="requisition_user" model="res.groups">
+        <field name="name">Requisition User</field>
+        <field name="category_id" ref="material_req"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="requisition_manager" model="res.groups">
+        <field name="name">Requisition Manager</field>
+        <field name="category_id" ref="material_req"/>
+        <field name="implied_ids" eval="[(4, ref('material_req.requisition_user'))]"/>
+
+    </record>
+     <record id="requisition_head" model="res.groups">
+        <field name="name">Requisition Head</field>
+        <field name="category_id" ref="material_req"/>
+        <field name="implied_ids" eval="[(4, ref('material_req.requisition_manager'))]"/>
+    </record>
+</odoo>

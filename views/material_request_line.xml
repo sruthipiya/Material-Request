@@ -1,0 +1,22 @@
+<odoo>
+    <record id="material_request_line_view" model="ir.actions.act_window">
+        <field name="name">Material Request Line</field>
+        <field name="res_model">material.request.line</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <record id="material_request_line_tree" model="ir.ui.view">
+        <field name="name">Material Request Line Tree</field>
+        <field name="model">material.request.line</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="product_id"/>
+                <field name="qty"/>
+                <field name="product_route"/>
+                <field name="source_id"
+                       attrs="{'invisible':[('product_route','!=', 'internal')]}"/>
+                <field name="dest_id"
+                       attrs="{'invisible':[('product_route','!=', 'internal')]}"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
